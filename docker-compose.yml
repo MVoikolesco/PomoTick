@@ -1,0 +1,15 @@
+services:
+  nuxt-app:
+    image: pomotrick:unstable
+    container_name: pomotrick-app
+    platform: 'linux/amd64'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+volumes:
+  node_modules:
