@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import BaseLayout from "~/layout/BaseLayout.vue";
-
-const appConfig = useAppConfig()
-
 </script>
 
 <template>
   <ion-page>
-    <BaseLayout>
+    <base-layout>
       <template #content>
-        <h1>Dashboard</h1>
+        <h1>Settings</h1>
       </template>
-    </BaseLayout>
+    </base-layout>
   </ion-page>
 </template>
+
+<style scoped>
+
+</style>
