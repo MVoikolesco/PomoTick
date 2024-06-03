@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/ionic',
-    '@nuxt/test-utils/module'
+    '@nuxtjs/ionic'
   ]
 })
