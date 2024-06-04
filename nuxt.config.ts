@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     fallback: true,
   },
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/ionic'
-  ]
+  modules: ["@nuxtjs/ionic"],
+  router: {
+    middleware: ['check-route']
+  }
 })
