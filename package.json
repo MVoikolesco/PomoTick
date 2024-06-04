@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "deploy": "nuxt build && nuxt generate && firebase deploy",
     "dev": "nuxt dev",
     "start": "nuxt start",
     "generate": "nuxt generate",
