@@ -3,9 +3,10 @@ LABEL maintainer="Mvoikolesco"
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy "package.json" and "package-lock.json" files to install dependencies
+COPY package*.json ./
 
-RUN npm ci
+RUN npm ci --omit=dev
 
 COPY . .
 
