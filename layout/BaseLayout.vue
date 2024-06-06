@@ -29,5 +29,6 @@ import { hourglassOutline, settingsOutline } from 'ionicons/icons';
 .base-template {
   width: 100%;
   height: 100%;
+  background: linear-gradient(to left bottom, #2b314a, #1e283e)
 }
 </style>

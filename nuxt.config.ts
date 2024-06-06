@@ -5,8 +5,14 @@ export default defineNuxtConfig({
     fallback: true,
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/ionic"],
+  modules: [
+    "@nuxtjs/ionic",
+    '@pinia/nuxt'
+  ],
   router: {
     middleware: ['check-route']
-  }
+  },
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
 })
