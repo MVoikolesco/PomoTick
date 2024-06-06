@@ -16,6 +16,10 @@ store.$subscribe(() => {
       : startNextCycle(store.workTime, 'work', false)
     : null
 }, { detached: true })
+
+const logDebug = () => {
+  console.log('debug')
+}
 </script>
 
 <template>
@@ -25,6 +29,9 @@ store.$subscribe(() => {
         <div class="home">
           <div class="counter-card">
             <CountdownTimer />
+          </div>
+          <div>
+            <ion-button @click="logDebug">Test</ion-button>
           </div>
         </div>
       </template>
