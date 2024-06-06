@@ -6,22 +6,6 @@ import { hourglassOutline, settingsOutline } from 'ionicons/icons';
 <template>
   <div class="base-template">
     <slot name="content">Default Header</slot>
-    <ion-page>
-      <ion-tabs>
-        <ion-router-outlet></ion-router-outlet>
-        <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="search" href="/settings">
-            <ion-icon :icon="settingsOutline" />
-            <ion-label>Settings</ion-label>
-          </ion-tab-button>
-
-          <ion-tab-button tab="index" href="/">
-            <ion-icon :icon="hourglassOutline" />
-            <ion-label>Dashboard</ion-label>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs>
-    </ion-page>
   </div>
 </template>
 
