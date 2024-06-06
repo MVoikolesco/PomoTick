@@ -9,8 +9,20 @@ const appConfig = useAppConfig()
   <ion-page>
     <BaseLayout>
       <template #content>
-        <h1>Dashboard</h1>
+        <div class="home">
+          <div class="counter-card">
+            <CountdownTimer :duration="60"/>
+          </div>
+        </div>
       </template>
     </BaseLayout>
   </ion-page>
 </template>
+
+<style scoped>
+.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+</style>
