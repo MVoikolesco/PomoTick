@@ -1,8 +1,21 @@
 <script setup lang="ts">
 import BaseLayout from "~/layout/BaseLayout.vue";
+import { useCountdownStore } from '~/stores/appStore';
 
-const appConfig = useAppConfig()
+const store = useCountdownStore();
 
+const startNextCycle = (time: number, status: string, value: boolean) => {
+  store.setCycleCompletedIs(status, value)
+  store.setCountdown(time);
+};
+
+store.$subscribe(() => {
+  store.cycleCompleted == true
+    ? store.cycleCompletedIs == 'work'
+      ? startNextCycle(store.interval, 'interval', false)
+      : startNextCycle(store.workTime, 'work', false)
+    : null
+}, { detached: true })
 </script>
 
 <template>
@@ -11,7 +24,7 @@ const appConfig = useAppConfig()
       <template #content>
         <div class="home">
           <div class="counter-card">
-            <CountdownTimer :duration="60"/>
+            <CountdownTimer />
           </div>
         </div>
       </template>

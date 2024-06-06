@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, defineProps } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+import { useCountdownStore } from '~/stores/appStore';
 
-interface Props {
-  duration: number;
-}
+const store = useCountdownStore();
 
-const props = defineProps<Props>();
-
-const timeLeft = ref<number>(props.duration * 1000); // Convert to milliseconds
+const time = ref<number>(store.countdown);
+const timeLeft = ref<number>(time.value * 1000);
 const timer = ref<number | null>(null);
 
 const formattedTime = computed(() => {
@@ -17,7 +15,7 @@ const formattedTime = computed(() => {
 });
 
 const circleStyle = computed(() => {
-  const progress = ((props.duration * 1000 - timeLeft.value) / (props.duration * 1000)) * 100;
+  const progress = ((time.value * 1000 - timeLeft.value) / (time.value * 1000)) * 100;
   return {
     strokeDasharray: `${progress}, 100`,
     stroke: `url(#gradient)`
@@ -25,15 +23,18 @@ const circleStyle = computed(() => {
 });
 
 const startTimer = () => {
+  clearInterval(timer.value);
+  timeLeft.value = time.value * 1000;
   timer.value = setInterval(() => {
     if (timeLeft.value > 0) {
-      timeLeft.value--;
+      timeLeft.value -= 100;
     } else {
       if (timer.value !== null) {
         clearInterval(timer.value);
+        store.setCycleCompletedIs('work', true);
       }
     }
-  }, 1) as unknown as number; // Type assertion to match the timer type
+  }, 100);
 };
 
 onMounted(() => {
@@ -45,6 +46,11 @@ onUnmounted(() => {
     clearInterval(timer.value);
   }
 });
+
+store.$subscribe(() => {
+  time.value = store.countdown
+  startTimer()
+})
 </script>
 
 <template>
