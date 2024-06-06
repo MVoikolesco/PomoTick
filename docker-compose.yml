@@ -1,5 +1,8 @@
 services:
   nuxt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: pomotrick:unstable
     container_name: pomotrick-app
     platform: 'linux/amd64'
