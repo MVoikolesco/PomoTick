@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCountdownStore } from '~/stores/appStore';
+import BaseLayout from "~/layout/BaseLayout.vue"
 
 const store = useCountdownStore();
 
@@ -23,18 +24,18 @@ const logDebug = () => {
 
 <template>
   <div>
-<!--    <BaseLayout>-->
-<!--      <template #content>-->
+    <BaseLayout>
+      <template #content>
         <div class="home">
           <div class="counter-card">
             <CountdownTimer />
           </div>
           <div>
-            <ion-button @click="logDebug">Test</ion-button>
+            <button @click="logDebug">Test</button>
           </div>
         </div>
-<!--      </template>-->
-<!--    </BaseLayout>-->
+      </template>
+    </BaseLayout>
   </div>
 </template>
 

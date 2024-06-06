@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { hourglassOutline, settingsOutline } from 'ionicons/icons';
 
 </script>
 
@@ -12,7 +11,7 @@ import { hourglassOutline, settingsOutline } from 'ionicons/icons';
 <style scoped>
 .base-template {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(to left bottom, #2b314a, #1e283e)
 }
 </style>

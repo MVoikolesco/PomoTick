@@ -1,13 +1,13 @@
 <script setup lang="ts">
-</script>
+import BaseLayout from "~/layout/BaseLayout.vue"</script>
 
 <template>
   <div>
-<!--    <base-layout>-->
-<!--      <template #content>-->
+    <base-layout>
+      <template #content>
         <h1>Settings</h1>
-<!--      </template>-->
-<!--    </base-layout>-->
+      </template>
+    </base-layout>
   </div>
 </template>
 
