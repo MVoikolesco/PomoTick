@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useTimerStore } from "~/stores/timeStore";
+import { useTimerStore } from "@/stores/timeStore";
 
 const timerStore = useTimerStore();
 

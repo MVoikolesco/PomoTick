@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import BaseLayout from "~/layout/BaseLayout.vue"</script>
+import BaseLayout from "@/layout/BaseLayout.vue";
+</script>
 
 <template>
   <div>
-    <base-layout>
+    <BaseLayout>
       <template #content>
         <h1>Settings</h1>
       </template>
-    </base-layout>
+    </BaseLayout>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

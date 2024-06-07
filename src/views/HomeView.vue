@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useTimerStore } from "~/stores/timeStore";
-import BaseLayout from "~/layout/BaseLayout.vue"
+import BaseLayout from "@/layout/BaseLayout.vue";
+import CountdownTimer from "@/components/CountdownTimer.vue";
+import { useTimerStore } from "@/stores/timeStore";
 
 const store = useTimerStore();
 
@@ -11,10 +12,10 @@ const startNextCycle = (time: number, status: string, value: boolean) => {
 
 store.$subscribe(() => {
   store.cycleCompleted == true
-    ? store.cycleCompletedIs == 'work'
-      ? startNextCycle(store.interval, 'interval', false)
-      : startNextCycle(store.workTime, 'work', false)
-    : null
+      ? store.cycleCompletedIs == 'work'
+          ? startNextCycle(store.interval, 'interval', false)
+          : startNextCycle(store.workTime, 'work', false)
+      : null
 }, { detached: true })
 
 </script>

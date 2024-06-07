@@ -1,18 +1,14 @@
-import { defineVitestConfig } from '@nuxt/test-utils/config'
+import { fileURLToPath } from 'node:url'
+import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
+import viteConfig from './vite.config'
 
-export default defineVitestConfig
-({
- test: {
-  environment: 'nuxt',
-   // you can optionally set Nuxt-specific environment options
-   // environmentOptions: {
-   //   nuxt: {
-   //     rootDir: fileURLToPath(new URL('./playground', import.meta.url)),
-   //     domEnvironment: 'happy-dom', // 'happy-dom' (default) or 'jsdom'
-   //     overrides: {
-   //       // other Nuxt config you want to pass
-   //     }
-   //   }
-   // }
- }
-})
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/**'],
+      root: fileURLToPath(new URL('./', import.meta.url))
+    }
+  })
+)

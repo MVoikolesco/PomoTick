@@ -24,9 +24,6 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Generate Static Files
-        run: npm run generate
-
       - name: Deploy to Firebase
         env:
           FIREBASE_DEPLOY_TOKEN: ${{ secrets.FIREBASE_DEPLOY_TOKEN }}
