@@ -73,7 +73,7 @@ onUnmounted(() => {
 
 .circle-bg {
   fill: none;
-  stroke: #ddd;
+  stroke: #4f586d;
   stroke-width: 3.8;
 }
 
@@ -87,5 +87,6 @@ onUnmounted(() => {
 .time {
   font-size: 2rem;
   font-family: 'Arial', sans-serif;
+  color: #fff;
 }
 </style>
