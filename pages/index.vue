@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import BaseLayout from "~/layout/BaseLayout.vue";
-import { useCountdownStore } from '~/stores/appStore';
+import { useTimerStore } from "~/stores/timeStore";
+import BaseLayout from "~/layout/BaseLayout.vue"
 
-const store = useCountdownStore();
+const store = useTimerStore();
 
 const startNextCycle = (time: number, status: string, value: boolean) => {
   store.setCycleCompletedIs(status, value)
@@ -17,32 +17,60 @@ store.$subscribe(() => {
     : null
 }, { detached: true })
 
-const logDebug = () => {
-  console.log('debug')
-}
 </script>
 
 <template>
-  <ion-page>
+  <div>
     <BaseLayout>
       <template #content>
         <div class="home">
           <div class="counter-card">
             <CountdownTimer />
           </div>
-          <div>
-            <ion-button @click="logDebug">Test</ion-button>
+          <div class="action-buttons">
+            <button @click="() => store.startTimer()">Start Timer</button>
+            <button @click="() => store.pauseTimer()">Pause Timer</button>
+            <button @click="() => store.resumeTimer()">Resume Timer</button>
+            <button @click="() => store.stopTimer()">Stop Timer</button>
           </div>
         </div>
       </template>
     </BaseLayout>
-  </ion-page>
+  </div>
 </template>
 
 <style scoped>
 .home {
   width: 100%;
-  height: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+.home > .counter-card {
+  width: 80%;
+  padding: 26px 20px;
+  border-radius: 16px;
+  background-color: #292f49;
+
+  display: flex;
+  justify-content: center;
+
+  -webkit-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
+  -moz-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
+  box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
+}
+.home > .action-buttons {
+  width: 80%;
+  padding: 26px 20px;
+  border-radius: 16px;
+  background-color: #3c4267;
+
+  display: flex;
+
+  -webkit-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
+  -moz-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
+  box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
 }
 </style>

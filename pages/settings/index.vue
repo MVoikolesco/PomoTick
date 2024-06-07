@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import BaseLayout from "~/layout/BaseLayout.vue";
-</script>
+import BaseLayout from "~/layout/BaseLayout.vue"</script>
 
 <template>
-  <ion-page>
+  <div>
     <base-layout>
       <template #content>
         <h1>Settings</h1>
       </template>
     </base-layout>
-  </ion-page>
+  </div>
 </template>
 
 <style scoped>
