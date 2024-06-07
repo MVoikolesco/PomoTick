@@ -5,7 +5,7 @@
   <RouterView />
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 *, *::before, *::after, body {
   margin: 0;
   padding: 0;
