@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useCountdownStore } from '~/stores/appStore';
+import { useTimerStore } from "~/stores/timeStore";
 import BaseLayout from "~/layout/BaseLayout.vue"
 
-const store = useCountdownStore();
+const store = useTimerStore();
 
 const startNextCycle = (time: number, status: string, value: boolean) => {
   store.setCycleCompletedIs(status, value)
@@ -17,9 +17,6 @@ store.$subscribe(() => {
     : null
 }, { detached: true })
 
-const logDebug = () => {
-  console.log('debug')
-}
 </script>
 
 <template>
@@ -31,7 +28,10 @@ const logDebug = () => {
             <CountdownTimer />
           </div>
           <div>
-            <button @click="logDebug">Test</button>
+            <button @click="() => store.startTimer()">Start Timer</button>
+            <button @click="() => store.pauseTimer()">Pause Timer</button>
+            <button @click="() => store.resumeTimer()">Resume Timer</button>
+            <button @click="() => store.stopTimer()">Stop Timer</button>
           </div>
         </div>
       </template>
