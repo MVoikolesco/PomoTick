@@ -5,9 +5,9 @@ export const useTimerStore = defineStore('timer', {
         timer: null as number | null,
         paused: false,
 
-        countdown: 15,
-        workTime: 15,
-        interval: 5,
+        countdown: 1500,
+        workTime: 1500,
+        interval: 300,
         cycles: 4,
         postCycleInterval: 60,
         cycleCompleted: false,
