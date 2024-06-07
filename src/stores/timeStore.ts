@@ -22,13 +22,17 @@ export const useTimerStore = defineStore('timer', {
             this.timeLeft = newTime * 1000;
         },
         startTimer() {
+            // @ts-ignore
             clearInterval(this.timer);
             this.paused = false;
+            // @ts-ignore
             this.timer = setInterval(() => {
                 if (!this.paused) {
                     if (this.timeLeft > 0) {
                         this.timeLeft -= 100;
                     } else {
+                        // @ts-ignore
+
                         clearInterval(this.timer);
                         // Aqui você pode emitir um evento ou executar qualquer outra ação quando o temporizador terminar.
                     }
@@ -36,22 +40,17 @@ export const useTimerStore = defineStore('timer', {
             }, 100);
         },
         stopTimer() {
+            // @ts-ignore
             clearInterval(this.timer);
             this.timer = null;
             this.timeLeft = this.time * 1000;
             this.paused = false;
         },
-        pauseTimer() {
-            this.paused = true;
-        },
         resumeTimer() {
             this.paused = false;
         },
         pauseTimer() {
             this.paused = true;
-        },
-        resumeTimer() {
-            this.paused = false;
         },
         setWorkTime(time: number) {
             this.workTime = time;
