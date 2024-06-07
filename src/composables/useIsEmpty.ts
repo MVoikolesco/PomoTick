@@ -1,5 +1,5 @@
 interface IsEmptyInterface {
-  (val: string | undefined | null | any[] | Record<string, any>): boolean;
+  (val: number | string | undefined | null | any[] | Record<string, any>): boolean;
 }
 
 export const useIsEmpty = () => { // The named container
