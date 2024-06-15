@@ -53,25 +53,18 @@ store.$subscribe(() => {
   width: 80%;
   padding: 26px 20px;
   border-radius: 16px;
-  background-color: #292f49;
+  background-color: #1C243F;
 
   display: flex;
   justify-content: center;
 
-  -webkit-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
-  -moz-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
-  box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
 }
 .home > .action-buttons {
   width: 80%;
   padding: 26px 20px;
   border-radius: 16px;
-  background-color: #3c4267;
+  background-color: #1C243F;
 
   display: flex;
-
-  -webkit-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
-  -moz-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
-  box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
 }
 </style>

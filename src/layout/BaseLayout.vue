@@ -27,13 +27,13 @@
   justify-content: space-between;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(to left bottom, #2b314a, #1e283e);
+  background: #0B1C2B;
 
   .navbar {
     position: relative;
     width: 100%;
     height: 90px;
-    background: #ffffff;
+    background: #1C243F;
 
     .nav-item {
       gap: 10px;
@@ -60,12 +60,12 @@
       }
 
       path {
-        fill: #85A3BB;
+        fill: #809FB8;
         transition: fill 0.3s;
       }
 
       span {
-        color: #85A3BB;
+        color: #809FB8;
         font-family: "system-ui";
         font-size: 18px;
         font-style: normal;
@@ -79,7 +79,7 @@
 
 <style lang="scss">
 body {
-  background: #1e283e;
+  background: #0B1C2B;
 }
 .flex-col {
   display: flex;
