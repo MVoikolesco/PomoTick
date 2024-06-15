@@ -10,7 +10,7 @@
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "deploy": "run build && firebase deploy"
+    "deploy": "run-p type-check \"build-only {@}\" -- && firebase deploy"
   },
   "dependencies": {
     "pinia": "^2.1.7",
