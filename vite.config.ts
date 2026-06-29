@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import VueDevTools from 'vite-plugin-vue-devtools'
 import {VitePWA} from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
@@ -11,28 +10,35 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    VueDevTools(),
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Pomotrick',
-        short_name: 'Pomotrick',
-        description: 'time management application with pomodoro',
-        theme_color: '#1e283e',
-        background_color: '#1e283e',
+        name: 'PomoTick - foco com ritmo',
+        short_name: 'PomoTick',
+        description: 'Timer Pomodoro elegante para foco, pausas e historico de produtividade.',
+        theme_color: '#1A1A1A',
+        background_color: '#1A1A1A',
         display: 'standalone',
         scope: '/',
         start_url: '/',
         icons: [
           {
-            src: '/android-chrome-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
+            src: '/pomotick-icon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
           },
           {
-            src: '/android-chrome-384x384.png',
+            src: '/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/android-chrome-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any maskable'
           },
         ]
       },
