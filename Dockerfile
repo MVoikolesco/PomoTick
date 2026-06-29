@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy "package.json" and "package-lock.json" files to install dependencies
 COPY package*.json ./
 
-RUN npm ci --omit=dev
+RUN npm ci
 
 COPY . .
 
@@ -14,4 +14,4 @@ RUN npm run build
 
 EXPOSE 5173
 
-CMD ["npm", "dev"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
