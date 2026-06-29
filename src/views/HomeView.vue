@@ -1,77 +1,116 @@
 <script setup lang="ts">
-import BaseLayout from "@/layout/BaseLayout.vue";
-import CountdownTimer from "@/components/CountdownTimer.vue";
-import { useTimerStore } from "@/stores/timeStore";
+import HistoryPanel from '@/components/pomodoro/HistoryPanel.vue';
+import MobileNav from '@/components/pomodoro/MobileNav.vue';
+import PomodoroHeader from '@/components/pomodoro/PomodoroHeader.vue';
+import SettingsDrawer from '@/components/pomodoro/SettingsDrawer.vue';
+import StatsFooter from '@/components/pomodoro/StatsFooter.vue';
+import TimerPanel from '@/components/pomodoro/TimerPanel.vue';
+import { usePomodoroTheme } from '@/composables/usePomodoroTheme';
+import { usePomodoroTicker } from '@/composables/usePomodoroTicker';
+import { useTimerStore } from '@/stores/timeStore';
 
 const store = useTimerStore();
+const { canvasClass, currentColor } = usePomodoroTheme();
 
-const startNextCycle = (time: number, status: string, value: boolean) => {
-  store.setCycleCompletedIs(status, value)
-  store.setCountdown(time);
-};
-
-store.$subscribe(() => {
-  store.cycleCompleted == true
-      ? store.cycleCompletedIs == 'work'
-          ? startNextCycle(store.interval, 'interval', false)
-          : startNextCycle(store.workTime, 'work', false)
-      : null
-}, { detached: true })
-
+usePomodoroTicker();
 </script>
 
 <template>
-  <div>
-    <BaseLayout>
-      <template #content>
-        <div class="home">
-          <div class="counter-card">
-            <CountdownTimer />
-          </div>
-          <div class="action-buttons">
-            <button @click="() => store.startTimer()">Start Timer</button>
-            <button @click="() => store.pauseTimer()">Pause Timer</button>
-            <button @click="() => store.resumeTimer()">Resume Timer</button>
-            <button @click="() => store.stopTimer()">Stop Timer</button>
-          </div>
-        </div>
-      </template>
-    </BaseLayout>
+  <div class="pomodoro-screen" :class="canvasClass">
+    <PomodoroHeader />
+    <MobileNav />
+
+    <main class="timer-stage" :class="{ 'history-stage': store.activeView === 'history' }">
+      <div class="ambient-glow" :style="{ backgroundColor: currentColor }" />
+
+      <TimerPanel v-if="store.activeView === 'timer'" />
+      <HistoryPanel v-else />
+    </main>
+
+    <StatsFooter />
+    <SettingsDrawer />
   </div>
 </template>
 
-<style scoped>
-.home {
-  width: 100%;
+<style scoped lang="scss">
+.pomodoro-screen {
+  --canvas: #f7f5f2;
+  --text: #2c2c2c;
+  --surface: #ffffff;
+  --surface-soft: rgba(255, 255, 255, 0.68);
+  --hairline: rgba(0, 0, 0, 0.05);
+  --track: rgba(0, 0, 0, 0.05);
+  --field: rgba(0, 0, 0, 0.035);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--canvas);
+  transition: background-color 500ms ease, color 500ms ease;
+
+  &.is-dark {
+    --canvas: #1a1a1a;
+    --text: #e8e6e3;
+    --surface: #242424;
+    --surface-soft: rgba(36, 36, 36, 0.68);
+    --hairline: rgba(255, 255, 255, 0.1);
+    --track: rgba(255, 255, 255, 0.1);
+    --field: rgba(255, 255, 255, 0.06);
+  }
+}
+
+:deep(button),
+:deep(input) {
+  color: inherit;
+  font: inherit;
+}
+
+:deep(button) {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.25;
+  }
+}
+
+.timer-stage {
+  position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding-top: 20px;
-}
-.home > .counter-card {
-  width: 80%;
-  padding: 26px 20px;
-  border-radius: 16px;
-  background-color: #292f49;
-
-  display: flex;
   justify-content: center;
-
-  -webkit-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
-  -moz-box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
-  box-shadow: -11px 17px 13px 8px rgba(11,21,41,1);
+  padding: 24px;
+  overflow: hidden;
 }
-.home > .action-buttons {
-  width: 80%;
-  padding: 26px 20px;
-  border-radius: 16px;
-  background-color: #3c4267;
 
-  display: flex;
+.history-stage {
+  justify-content: flex-start;
+  overflow-y: auto;
+}
 
-  -webkit-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
-  -moz-box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
-  box-shadow: -13px 10px 17px 8px rgba(35,43,68,1);
+.ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(260px, 75vw, 600px);
+  height: clamp(260px, 75vw, 600px);
+  border-radius: 999px;
+  opacity: 0.03;
+  filter: blur(64px);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1.2);
+  transition: background-color 800ms ease, transform 800ms ease;
+}
+
+@media (max-width: 640px) {
+  .timer-stage {
+    padding-inline: 20px;
+  }
 }
 </style>
