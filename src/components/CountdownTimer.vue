@@ -1,55 +1,31 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useTimerStore } from "@/stores/timeStore";
+import { computed, onMounted } from 'vue';
+import { useTimerStore } from '@/stores/timeStore';
 
 const timerStore = useTimerStore();
 
 const formattedTime = computed(() => {
-  const minutes = Math.floor((timerStore.timeLeft / 1000) / 60);
-  const seconds = Math.floor((timerStore.timeLeft / 1000) % 60);
-  return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+  const minutes = Math.floor(timerStore.timeLeft / 60).toString().padStart(2, '0');
+  const seconds = (timerStore.timeLeft % 60).toString().padStart(2, '0');
+
+  return `${minutes}:${seconds}`;
 });
 
-
-const circleStyle = computed(() => {
-  const progress = ((timerStore.time * 1000 - timerStore.timeLeft) / (timerStore.time * 1000)) * 100;
-  return {
-    strokeDasharray: `${progress}, 100`,
-    stroke: `url(#gradient)`
-  };
-});
+const circleStyle = computed(() => ({
+  strokeDasharray: '283',
+  strokeDashoffset: 283 - (283 * timerStore.progressPercent) / 100,
+}));
 
 onMounted(() => {
-  timerStore.setTime(timerStore.countdown);
-});
-
-onUnmounted(() => {
-  timerStore.stopTimer();
+  timerStore.hydrate();
 });
 </script>
 
 <template>
   <div class="countdown-timer">
-    <svg class="circle" viewBox="0 0 36 36">
-      <defs>
-        <linearGradient id="gradient" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#64abec" />
-          <stop offset="100%" stop-color="#64abec" />
-        </linearGradient>
-      </defs>
-      <path
-          class="circle-bg"
-          d="M18 2.0845
-           a 15.9155 15.9155 0 0 1 0 31.831
-           a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <path
-          class="circle-progress"
-          :style="circleStyle"
-          d="M18 2.0845
-           a 15.9155 15.9155 0 0 1 0 31.831
-           a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
+    <svg class="circle" viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="circle-bg" cx="50" cy="50" r="45" />
+      <circle class="circle-progress" cx="50" cy="50" r="45" :style="circleStyle" />
     </svg>
     <div class="time">{{ formattedTime }}</div>
   </div>
@@ -57,36 +33,44 @@ onUnmounted(() => {
 
 <style scoped>
 .countdown-timer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-bg,
+.circle-progress {
+  fill: none;
 }
 
 .circle-bg {
-  fill: none;
-  stroke: #4f586d;
-  stroke-width: 3.8;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 2;
 }
 
 .circle-progress {
-  fill: none;
-  stroke-width: 3.8;
+  stroke: #7d9464;
+  stroke-width: 4;
   stroke-linecap: round;
-  transition: stroke-dasharray 0.1s, stroke 0.1s;
+  transition: stroke-dashoffset 500ms linear;
 }
 
 .time {
-  font-size: 2rem;
-  font-family: 'Arial', sans-serif;
-  color: #fff;
+  position: relative;
+  color: currentColor;
+  font-size: 42px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 </style>
