@@ -87,32 +87,52 @@ watch(
               <strong>Auto iniciar pausas</strong>
               <em>Comeca a pausa ao terminar um foco.</em>
             </span>
-            <input v-model="settingsDraft.autoStartBreaks" type="checkbox" />
+            <span class="switch-control">
+              <input v-model="settingsDraft.autoStartBreaks" type="checkbox" />
+              <span class="switch-track" aria-hidden="true">
+                <span class="switch-thumb" />
+              </span>
+            </span>
           </label>
           <label class="toggle-row">
             <span>
               <strong>Auto iniciar foco</strong>
               <em>Volta ao foco ao terminar uma pausa.</em>
             </span>
-            <input v-model="settingsDraft.autoStartFocus" type="checkbox" />
+            <span class="switch-control">
+              <input v-model="settingsDraft.autoStartFocus" type="checkbox" />
+              <span class="switch-track" aria-hidden="true">
+                <span class="switch-thumb" />
+              </span>
+            </span>
           </label>
           <label class="toggle-row">
             <span>
               <strong>Som</strong>
               <em>Toca um aviso curto ao concluir.</em>
             </span>
-            <input v-model="settingsDraft.soundEnabled" type="checkbox" />
+            <span class="switch-control">
+              <input v-model="settingsDraft.soundEnabled" type="checkbox" />
+              <span class="switch-track" aria-hidden="true">
+                <span class="switch-thumb" />
+              </span>
+            </span>
           </label>
           <label class="toggle-row">
             <span>
               <strong>Notificacoes</strong>
               <em>Usa permissao do navegador.</em>
             </span>
-            <input
-              :checked="settingsDraft.notificationsEnabled"
-              type="checkbox"
-              @change="requestNotifications(($event.target as HTMLInputElement).checked)"
-            />
+            <span class="switch-control">
+              <input
+                :checked="settingsDraft.notificationsEnabled"
+                type="checkbox"
+                @change="requestNotifications(($event.target as HTMLInputElement).checked)"
+              />
+              <span class="switch-track" aria-hidden="true">
+                <span class="switch-thumb" />
+              </span>
+            </span>
           </label>
         </div>
 
@@ -242,13 +262,63 @@ watch(
     font-style: normal;
     opacity: 0.45;
   }
+}
+
+.switch-control {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
 
   input {
-    width: 42px;
-    height: 24px;
-    flex: 0 0 auto;
-    accent-color: #7d9464;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
   }
+
+  input:focus-visible + .switch-track {
+    outline: 2px solid color-mix(in srgb, #7d9464 70%, white);
+    outline-offset: 3px;
+  }
+
+  input:checked + .switch-track {
+    border-color: color-mix(in srgb, #7d9464 58%, transparent);
+    background: color-mix(in srgb, #7d9464 72%, var(--surface));
+  }
+
+  input:checked + .switch-track .switch-thumb {
+    transform: translateX(20px);
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  }
+}
+
+.switch-track {
+  width: 48px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--field);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.switch-thumb {
+  width: 22px;
+  height: 22px;
+  margin-left: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 74%, var(--surface));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .settings-actions {
